@@ -453,6 +453,7 @@ func (p *Plugin) fetchOnlineMeetingsURL() (*ApplicationState, *APIError) {
 func (p *Plugin) getApplicationState(discoveryURL string) (*ApplicationState, *APIError) {
 	config := p.getConfiguration()
 
+	p.API.LogDebug("SfB Server Debug - getApplicationState", "discoveryURL", discoveryURL)
 	DiscoveryResponse, err := p.client.performDiscovery(discoveryURL)
 	if err != nil {
 		return nil, &APIError{Message: "Error performing autodiscovery: " + err.Error()}
@@ -534,6 +535,9 @@ func (p *Plugin) getRootURL() (*string, *APIError) {
 
 	rootURL, err := p.determineRootURL(p.getConfiguration().Domain)
 	if err != nil {
+		p.API.LogDebug("SfB Server Debug - getRootURL", "rootURL", rootURL)
+		p.API.LogDebug("SfB Server Debug - getRootURL", "configDomain", p.getConfiguration().Domain)
+
 		return nil, err
 	}
 
@@ -566,6 +570,10 @@ func (p *Plugin) determineRootURL(domain string) (*string, *APIError) {
 	} {
 		_, err := p.client.performDiscovery(o.url)
 		if err == nil {
+			p.API.LogDebug("SfB Server Debug - determineRootURL", "domain", domain)
+			p.API.LogDebug("SfB Server Debug - determineRootURL", "lyncdiscoverURL", o.url)
+			p.API.LogDebug("SfB Server Debug - determineRootURL", "discoveryType", o.name)
+
 			return &o.url, nil
 		}
 

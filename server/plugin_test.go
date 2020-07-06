@@ -1,6 +1,6 @@
 package main
 
-import (
+/* import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -482,3 +482,4 @@ func (c *ClientMock) readUserResource(url string, token string) (*UserResourceRe
 	}
 	return nil, ret.Error(1)
 }
+*/
